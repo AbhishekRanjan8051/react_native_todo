@@ -8,11 +8,11 @@ import {
   TextInput,
   FlatList,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 
 export default function App() {
-  const [todo, setTodo] = useState("");
-  const [people, setPeople] = useState([
+  const [todo, setTodo] = useState([
     {
       name: "Vinte",
       key: 1,
@@ -25,76 +25,34 @@ export default function App() {
       name: "Thoughtblab",
       key: 3,
     },
-    {
-      name: "Dabfeed",
-      key: 4,
-    },
-    {
-      name: "Yotz",
-      key: 5,
-    },
-    {
-      name: "Meejo",
-      key: 6,
-    },
-    {
-      name: "Skilith",
-      key: 7,
-    },
-    {
-      name: "Skippad",
-      key: 8,
-    },
-    {
-      name: "Devpoint",
-      key: 9,
-    },
-    {
-      name: "Ozu",
-      key: 10,
-    },
   ]);
+
   const clickHandler = () => {
-    setTodo("abhishek");
+    console.log("hello");
   };
-  const pressHandler = (id) => {
-    console.log(id);
-    setPeople((prev) => {
-      return prev.filter((person) => person.key != id);
-    });
-  };
+
   return (
     <View style={styles.container}>
-      <FlatList
-        numColumns={2}
-        data={people}
-        keyExtractor={(item) => item.key}
-        renderItem={({ item }) => (
-          <View>
-            <Text></Text>
-            <TouchableOpacity onPress={() => pressHandler(item.key)}>
-              <Text style={styles.input}>{item.name}</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-      />
-
-      {/* <Text>My Todo</Text>
-      <Text></Text>
-      <Text>{todo}</Text>
-      <Text></Text>
+      {/* header */}
       <View>
-        <Text style={styles.text}>Add Todo :-</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="e.g : John Doe "
-          onChangeText={(val) => setTodo(val)}
+        <Text>Header</Text>
+      </View>
+      {/* add todo */}
+      <View>
+        <Text style={{ textAlign: "center" }}>Add Todo :-</Text>
+        <View style={styles.addtodo}>
+          <TextInput style={styles.input} />
+
+          <Button title="Add" onPress={clickHandler} />
+        </View>
+      </View>
+      {/* todo List */}
+      <View style={styles.todolist}>
+        <FlatList
+          data={todo}
+          renderItem={({ item }) => <Text>{item.name}</Text>}
         />
       </View>
-      <View>
-        <Button title="Add Todo" onPress={clickHandler} />
-      </View>
-      <StatusBar style="auto" /> */}
     </View>
   );
 }
@@ -105,18 +63,20 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    marginTop: 150,
   },
   input: {
     borderColor: "green",
     borderWidth: 1,
-    padding: 5,
-    margin: 10,
-    width: 150,
-    marginTop: 30,
-    backgroundColor: "pink",
+    width: 170,
+    marginTop: 10,
   },
-  text: {
-    margin: "auto",
-    textAlign: "center",
+  addtodo: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 5,
+  },
+  todolist: {
+    marginTop: 15,
   },
 });
